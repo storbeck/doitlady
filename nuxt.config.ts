@@ -4,8 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
 
-  // when enabling ssr option you need to disable inlineStyles and maybe devLogs
   features: {
+    // keep critical CSS inlined on first paint to avoid FOUC
     inlineStyles: true,
     devLogs: false,
   },
@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [],
+  css: ['vuetify/styles', '@mdi/font/css/materialdesignicons.css'],
   modules: ['@nuxt/fonts', 'vuetify-nuxt-module', '@nuxt/eslint', '@pinia/nuxt', 'nuxt-auth-utils'],
 
   vuetify: {
@@ -34,12 +34,6 @@ export default defineNuxtConfig({
         prefersColorSchemeOptions: {
           useBrowserThemeOnly: false,
         },
-      },
-
-      // /* If customizing sass global variables ($utilities, $reset, $color-pack, $body-font-family, etc) */
-      // disableVuetifyStyles: true,
-      styles: {
-        configFile: 'assets/settings.scss',
       },
     },
   },
