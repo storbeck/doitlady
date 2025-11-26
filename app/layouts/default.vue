@@ -1,7 +1,14 @@
 <template>
   <v-app>
+    <app-header />
     <v-main>
-      <slot />
+      <v-container>
+        <slot />
+      </v-container>
     </v-main>
   </v-app>
 </template>
+
+<script setup lang="ts">
+import appHeader from '~/components/AppHeader.vue'
+</script>

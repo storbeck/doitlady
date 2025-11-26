@@ -3,7 +3,5 @@
 </script>
 
 <template>
-  <v-container>
-    <ItemList />
-  </v-container>
+  <ItemList />
 </template>

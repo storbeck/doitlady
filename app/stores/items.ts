@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 interface Item {
-  id: number
+  id: string
   name: string
   description: string;
   status: string;
@@ -9,19 +9,31 @@ interface Item {
   updatedAt?: Date;
 }
 
+type NewItem = Omit<Item, 'id' | 'createdAt' | 'updatedAt'>
+
 const DEFAULT_ITEMS: Item[] = [
-  { id: 1, name: 'Fix login bug', description: 'Users cannot login with special characters in password', status: 'todo' },
-  { id: 2, name: 'Update documentation', description: 'Add API endpoints documentation for v2', status: 'in-progress' },
-  { id: 3, name: 'Database migration', description: 'Waiting for DevOps team to approve schema changes', status: 'blocked' },
-  { id: 4, name: 'Setup CI/CD pipeline', description: 'Configure GitHub Actions for automated testing', status: 'done' },
+  { id: '1', name: 'Fix login bug', description: 'Users cannot login with special characters in password', status: 'todo' },
+  { id: '2', name: 'Update documentation', description: 'Add API endpoints documentation for v2', status: 'in-progress' },
+  { id: '3', name: 'Database migration', description: 'Waiting for DevOps team to approve schema changes', status: 'blocked' },
+  { id: '4', name: 'Setup CI/CD pipeline', description: 'Configure GitHub Actions for automated testing', status: 'done' },
 ];
 
 export const useItemStore = defineStore('items', () => {
   
   const items = ref<Item[]>(DEFAULT_ITEMS);
+  const swimlanes = ['blocked', 'in-progress', 'todo', 'done']
 
-  const addItem = (item: Item): Item[] => {
-    items.value.push(item);
+  const generateRandomId = (): string => {
+    return crypto.randomUUID()
+  }
+  const addItem = (item: NewItem): Item[] => {
+    items.value.push({
+      ...item,
+      id: generateRandomId(),
+      status: item.status ?? 'todo',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return items.value;
   }
 
@@ -35,5 +47,5 @@ export const useItemStore = defineStore('items', () => {
     return items.value;
   }
 
-  return { items, addItem, updateStatus, remoteItem };
+  return { items, addItem, updateStatus, remoteItem, swimlanes };
 });
