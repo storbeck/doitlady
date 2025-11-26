@@ -6,7 +6,8 @@
     <template #activator="{ props }">
       <v-btn 
         v-bind="props"
-        variant="outlined"
+        color="primary"
+        variant="flat"
         prepend-icon="mdi-plus"
         class="ml-3"
       >
