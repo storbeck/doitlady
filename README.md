@@ -1,6 +1,7 @@
 # Do It Lady! 🚀
 
-<img src="./app/assets/chit.webp" width=120">
+<img src="./app/assets/chit.webp" alt="image of chit, source: https://chitmerch.com/" width="200"/>
+
 
 **Do it, lady.**  
 All of it. At once. Yeah. All the time. Or whenever you want.
