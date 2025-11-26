@@ -1,7 +1,8 @@
-<script lang="ts" setup>
-//
-</script>
-
 <template>
   <ItemList />
 </template>
+<script setup lang="ts">
+definePageMeta({
+    middleware: ['authenticated']
+})
+</script>

@@ -18,10 +18,12 @@
     "@pinia/nuxt": "^0.11.3",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
+    "nuxt-auth-utils": "^0.5.25",
     "pinia": "^3.0.4",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3",
-    "vuetify": "^3.9.1"
+    "vuetify": "^3.9.1",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",

@@ -21,16 +21,14 @@
           @dragstart="startDrag($event, item)"
         >
           <v-container class="d-flex align-center pa-0">
-            <v-list-item-prepend class="w-10">
-              <v-icon class="mr-2">mdi-drag</v-icon>
-            </v-list-item-prepend>
-            <v-list-item-content class="flex-grow-1">
+            
+            <v-icon class="mr-2 w-10">mdi-drag</v-icon>
+            <v-container class="flex-grow-1 pa-0">
               <v-list-item-title>{{ item.name }}</v-list-item-title>
               <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-append>
-              <v-icon @click="itemStore.remoteItem(item)">mdi-close</v-icon>
-            </v-list-item-append>
+            </v-container>
+            
+            <v-icon @click="itemStore.removeItem(item)">mdi-close</v-icon>
           </v-container>
         </v-list-item>
       </v-list>
@@ -42,6 +40,10 @@
 import { storeToRefs } from 'pinia'
 import { useItemStore } from '@/stores/items'
 import { ref } from 'vue'
+
+
+const { data } = await useFetch('/api/hello')
+console.log('API Response:', data.value)
 
 const itemStore = useItemStore()
 const { swimlanes } = itemStore
