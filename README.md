@@ -1,4 +1,3 @@
-```markdown
 # Do It Lady! 🚀
 
 ![Screenshot of Chit, from "The Chit Show"](./app/assets/chit.webp)
@@ -29,4 +28,3 @@ npm run preview   # if you want to check it
 ```
 
 **Do it, lady.**
-```
