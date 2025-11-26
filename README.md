@@ -1,4 +1,4 @@
-# Do It Lady! 🚀
+# Do It Lady!
 
 <img src="./app/assets/chit.webp" alt="image of chit, source: https://chitmerch.com/" width="200"/>
 
