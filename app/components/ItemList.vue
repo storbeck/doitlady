@@ -7,17 +7,18 @@
     <v-col cols="12">
       <h3 class="text-capitalize">{{ swimlane }}</h3>
       <v-list
-        class="drop-zone border"
+        :class="{ 'drop-zone': true, 'dragover': isDragOver(swimlane), 'border': true }"
         @drop.prevent.stop="onDrop($event, swimlane)"
         @dragover.prevent
-        @dragenter.prevent
+        @dragenter="onDragEnter(swimlane)"
+        @dragleave="onDragLeave(swimlane)"
       >
         <v-list-item
           v-for="item in items.filter(i => i.status === swimlane)"
           :key="item.id"
+          class="drag-el border"
           :draggable="true"
           @dragstart="startDrag($event, item)"
-          class="drag-el border"
         >
           <v-container class="d-flex align-center pa-0">
             <v-list-item-prepend class="w-10">
@@ -40,10 +41,13 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { useItemStore } from '@/stores/items'
+import { ref } from 'vue'
 
 const itemStore = useItemStore()
 const { swimlanes } = itemStore
 const { items } = storeToRefs(itemStore);
+
+const dragOverCounts = ref<Record<string, number>>({})
 
 const startDrag = (event, item) => {
   event.dataTransfer.dropEffect = 'move'
@@ -52,11 +56,29 @@ const startDrag = (event, item) => {
 }
 
 const onDrop = (event, list) => {
-  const itemId = Number(event.dataTransfer.getData('itemId'))
+  const itemId = event.dataTransfer.getData('itemId')
   const item = items.value.find(i => i.id === itemId)
   if (!item) return
 
   itemStore.updateStatus(item, list)
+  dragOverCounts.value = {}
+}
+
+const onDragEnter = (swimlane: string) => {
+  if (!dragOverCounts.value[swimlane]) {
+    dragOverCounts.value[swimlane] = 0
+  }
+  dragOverCounts.value[swimlane]++
+}
+
+const onDragLeave = (swimlane: string) => {
+  if (dragOverCounts.value[swimlane]) {
+    dragOverCounts.value[swimlane]--
+  }
+}
+
+const isDragOver = (swimlane: string) => {
+  return (dragOverCounts.value[swimlane] || 0) > 0
 }
 </script>
 
@@ -64,6 +86,11 @@ const onDrop = (event, list) => {
 .drop-zone {
   margin-bottom: 10px;
   padding: 10px;
+}
+
+// style drop-zone when dragging over
+.drop-zone.dragover {
+  background-color: rgba(var(--v-theme-on-surface), 0.1);
 }
 
 .drag-el {
